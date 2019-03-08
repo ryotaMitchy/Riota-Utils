@@ -1,0 +1,15 @@
+target/
+.env
+*.DS_Store
+.idea/
+*.iml
+*.class
+.classpath
+.project
+.factorypath
+.settings/
+docs/tmp/
+docs/java-getting-started/
+docs/deploying-spring-boot-apps/
+*.vscode
+*.lock
