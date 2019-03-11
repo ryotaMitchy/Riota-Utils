@@ -1,3 +1,4 @@
+#git管理対象外のパスを指定
 target/
 .env
 *.DS_Store
@@ -13,3 +14,5 @@ docs/java-getting-started/
 docs/deploying-spring-boot-apps/
 *.vscode
 *.lock
+.gradle/
+build/
