@@ -3,7 +3,11 @@
  */
 package com.scene.riota;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class App {
     public String getGreeting() {
@@ -11,7 +15,8 @@ public class App {
     }
 
     public static void main(String[] args) {
-        String path = "/Users/ryota/product/develop/systra/fgp/heroku/tolling";
+        String path = "/users/miyagi/dev/eclipse_work/fgp/heroku/tolling";
+        path = "/users/miyagi/dev/eclipse_work/Riota-Utils";
         FileSearch search = new FileSearch();
 
         // System.out.println("\n●全てのファイルを取得");
@@ -42,13 +47,37 @@ public class App {
 
     /**
      * 取得したファイルに対して同一の処理を実施する
+     * 
      * @param files ファイルリスト
      */
     private static void printFileList(File[] files) {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
             System.out.println((i + 1) + ":    " + file);
+            System.out.println(writeFile(file));
         }
+    }
+
+    private static String writeFile(File file) {
+        try {
+            if (file.exists() && file.isFile() && file.canWrite()) {
+                PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+
+                pw.println("/*");
+                pw.print(" * ");
+                pw.print("Copyright(c) 2019 Fukushima Gas Power Co.,Ltd. All Rights Reserved.");
+                pw.println(" */");
+
+                pw.close();
+                return "書き込み完了";
+            } else {
+                return "ファイルに書き込めません";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+
     }
 
 }
