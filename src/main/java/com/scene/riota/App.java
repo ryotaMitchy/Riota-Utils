@@ -6,13 +6,12 @@ package com.scene.riota;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -77,12 +76,16 @@ public class App {
     private static void readFileContent(File file) {
 
         // ファイル内容リストを設定する
-        List<String> readRow = new ArrayList<>();
+        // 行頭に追加を繰り返す為LinkedListにて定義
+        List<String> readRow = new LinkedList<>();
+        Integer deleteRows = 0;
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(file));
             String str = null;
-            while ((str = br.readLine()) != null) { // readLine()で１行ずつ読み込んでいく
+
+            // readLine()で１行ずつ読み込んでいく
+            while ((str = br.readLine()) != null) {
                 readRow.add(str);
             }
             br.close();
@@ -101,6 +104,7 @@ public class App {
 
     private static String writeFile(File file, List<String> contents) {
 
+        // 追加する文字列を設定
         StringBuilder sb = new StringBuilder();
         sb.append("/*");
         sb.append("\n");
@@ -109,11 +113,28 @@ public class App {
         sb.append("\n");
         sb.append(" */");
 
+        // ファイル書き込み開始
         try {
             if (file.exists() && file.isFile() && file.canWrite()) {
-                PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+                // ファイル書き込みクラスを生成（追記モードではなく上書きモードで生成）
+                PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 
-                pw.println(sb.toString());
+                boolean skipflg = false;
+                // 事前に読み込んでおいたソースコードを設定していく
+                // 上から順番に検査する
+                for (String row : contents) {
+                    if (!skipflg && row.contains("package")) {
+                        // packageの文言が出てきたらソースコード設定フラグをtrueにする
+                        skipflg = true;
+                        // ファイルに統一するヘッダー情報を設定
+                        pw.println(sb.toString());
+                    }
+                    // 余分情報と判断して無視する
+                    if (skipflg) {
+                        // もともと記載のあるソースコードを行ごとに設定する
+                        pw.println(row);
+                    }
+                }
 
                 pw.close();
                 return "書き込み完了";
