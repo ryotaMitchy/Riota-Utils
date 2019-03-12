@@ -3,16 +3,22 @@
  */
 package com.scene.riota;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+
+    private static Map<String, List<String>> readRowContents = new HashMap<>();
 
     public static void main(String[] args) {
         String path = "/users/miyagi/dev/eclipse_work/fgp/heroku/tolling";
@@ -51,22 +57,63 @@ public class App {
      * @param files ファイルリスト
      */
     private static void printFileList(File[] files) {
+        // ファイル読み込み
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
             System.out.println((i + 1) + ":    " + file);
-            System.out.println(writeFile(file));
+            readFileContent(file);
+        }
+
+        // ファイル書き込み
+        for (File file : files) {
+            List<String> contents = readRowContents.get(file.getName());
+            System.out.println(writeFile(file, contents));
         }
     }
 
-    private static String writeFile(File file) {
+    /**
+     * ファイル別に一行ずつListに設定する
+     */
+    private static void readFileContent(File file) {
+
+        // ファイル内容リストを設定する
+        List<String> readRow = new ArrayList<>();
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String str = null;
+            while ((str = br.readLine()) != null) { // readLine()で１行ずつ読み込んでいく
+                readRow.add(str);
+            }
+            br.close();
+            // ファイル名に対してファイル内容リストを設定する
+            readRowContents.put(file.getName(), readRow);
+        } catch (Exception e) {
+            if (br != null)
+                try {
+                    br.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            e.printStackTrace();
+        }
+    }
+
+    private static String writeFile(File file, List<String> contents) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("/*");
+        sb.append("\n");
+        sb.append(" * ");
+        sb.append("Copyright(c) 2019 Fukushima Gas Power Co.,Ltd. All Rights Reserved.");
+        sb.append("\n");
+        sb.append(" */");
+
         try {
             if (file.exists() && file.isFile() && file.canWrite()) {
-                PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+                PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
 
-                pw.println("/*");
-                pw.print(" * ");
-                pw.print("Copyright(c) 2019 Fukushima Gas Power Co.,Ltd. All Rights Reserved.");
-                pw.println(" */");
+                pw.println(sb.toString());
 
                 pw.close();
                 return "書き込み完了";
