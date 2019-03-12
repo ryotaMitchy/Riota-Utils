@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class FileAddHeader {
 
+    /** ファイルパス毎にファイル内容を保持するMap */
     private static Map<String, List<String>> readRowContents = new HashMap<>();
 
     public static void main(String[] args) {
