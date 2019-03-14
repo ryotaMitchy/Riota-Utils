@@ -20,7 +20,10 @@ public class FileAddHeader {
 
     public static void main(String[] args) {
         String path = "/users/miyagi/dev/eclipse_work/fgp/heroku/tolling";
+        // 内部動作確認用
         path = "/users/miyagi/dev/eclipse_work/Riota-Utils";
+        // JPAEntity自動生成用
+        path = "/users/miyagi/dev/eclipse_work/generate.entity/src";
         FileSearch search = new FileSearch();
 
         // System.out.println("\n●全てのファイルを取得");
@@ -119,6 +122,49 @@ public class FileAddHeader {
      */
     private static String writeFile(File file, List<String> contents) {
 
+        // ファイルに同一ヘッダーを追加する
+        return removeRow(file, contents);
+
+        // ファイルに同一ヘッダーを追加する
+        // return fileAddHeader(file, contents);
+    }
+
+    private static String removeRow(File file, List<String> contents) {
+        // ファイル書き込み開始
+        try {
+            if (file.exists() && file.isFile() && file.canWrite()) {
+                // ファイル書き込みクラスを生成（追記モードではなく上書きモードで生成）
+                PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+
+                // 事前に読み込んでおいたソースコードを設定していく
+                // 上から順番に検査する
+                // 除外対象文字列に該当する場合
+                String removeCode = "@NamedQuery";
+                for (String row : contents) {
+                    if (row.contains(removeCode)) {
+                        // 除外対象文字列に該当する場合設定しない
+                    } else {
+                        // もともと記載のあるソースコードを行ごとに設定する
+                        pw.println(row);
+                    }
+                }
+
+                pw.close();
+                return file.getPath() + ":書き込み完了";
+            } else {
+                return file.getPath() + "ファイルに書き込めません";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * 抽出したファイルに同一のヘッダーを設定する
+     */
+    private static String fileAddHeader(File file, List<String> contents) {
+        
         // 追加する文字列を設定
         StringBuilder sb = new StringBuilder();
         sb.append("/*");
@@ -160,7 +206,5 @@ public class FileAddHeader {
             e.printStackTrace();
             return e.getMessage();
         }
-
     }
-
 }

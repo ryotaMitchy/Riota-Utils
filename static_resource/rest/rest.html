@@ -9,7 +9,7 @@
 	<!-- <link rel="stylesheet" media="all" href="./main.css" /> -->
 	<script type="text/javascript" src="./jquery/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="./bootstrap/js/bootstrap.js"></script>
-	<!-- <script type="text/javascript" src="./restClient.js"></script> -->
+	<script type="text/javascript" src="./rest.js"></script>
 </head>
 
 <body>
@@ -20,11 +20,11 @@
 			<h3>Static REST Access</h3>
 
 			<div class="col-md-12">
-				<input type="text" id="feature" name="feature" value="if0009" />
+				<input type="text" id="feature" name="feature" value="if0082" />
 			</div>
-			<form id="restForm" action="/heroku/test" method="" enctype="multipart/form-data">
+			<form id="restForm" action="/heroku/" method="" enctype="multipart/form-data">
 				<div class=“col-md-12”>
-					<input type="text" name="term" value="20xx" />
+					<input type="text" name="recodeMode" value="0" />
 				</div>
 				<div class=“col-md-12”>
 					<input type="text" name="shareholderId" value="00002" />
@@ -33,7 +33,9 @@
 					<input type="text" name="userId" value="miyagi" />
 				</div>
 				<div class=“col-md-12”>
-					<input type="text" name="outputPlan" value="1010" />
+					<!-- <input type="text" name="fileData" value="1010" /> -->
+					<input type="file" onchange="fileget(this);">
+					<input id="base64area" type="text" name="fileData" />base64データ
 				</div>
 				<!-- ボタン領域 -->
 				<div class=“col-md-4”>
@@ -61,55 +63,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		window.onload = function load() {
-			console.log('load start');
-			let buttons = $("#restForm").find('input[type="button"]');
-			$(buttons).each(function (index, element) {
-				// クリックイベントを設定
-				$(element).on('click', createRequest);
-			})
-			return false;
-		}
-
-		/**
-		 * リクエスト方法ボタン押下時処理.
-		 */
-		function createRequest() {
-			let form = $(this).closest('form');
-			// form.action = 'http://localhost:5000' + form.action;
-			// form.method = $(this).val();
-			// form.submit();
-			var data = {};
-			form.find('input[type="text"]').each(function (index, element) {
-				// パラメータを集約
-				data[element.name] = element.value;
-			})
-			// Ajax実施
-			callAjax(form.attr('action'), $(this).val(), data);
-		}
-
-		function callAjax(url, method, data) {
-			console.log(url);
-			console.log(method);
-			console.log(data);
-
-			$.ajax({
-				url: 'http://localhost:5000' + url,
-				type: method,
-				data: JSON.stringify(data),
-				contentType: 'application/json',
-				dataType: "json",
-				success: function (result) {
-					// Do something with the result
-					$('#result').val(JSON.stringify(result));
-				}
-			});
-
-			return false;
-		}
-	</script>
 </body>
 
 </html>
