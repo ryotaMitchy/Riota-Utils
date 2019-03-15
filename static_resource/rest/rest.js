@@ -39,11 +39,21 @@ function callAjax(url, method, data) {
         type: method,
         data: JSON.stringify(data),
         contentType: 'application/json',
-        dataType: "json",
-        success: function (result) {
-            // Do something with the result
-            $('#result').val(JSON.stringify(result));
-        }
+        dataType: "json"
+    }).then((...args) => {
+        // done 正常終了時
+        const [data, textStatus, jqXHR] = args;
+
+        console.log('done', jqXHR.status);
+        $('#result').val(JSON.stringify(data));
+    }).catch((...args) => {
+        // fail 通信失敗時
+        const [jqXHR, textStatus, errorThrown] = args;
+
+        console.log('fail', jqXHR.status);
+    }).then(() => {
+        // always 常に処理される
+        console.log('always');
     });
 
     return false;
