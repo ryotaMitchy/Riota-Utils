@@ -12,56 +12,125 @@
 	<script type="text/javascript" src="./rest.js"></script>
 </head>
 
+
 <body>
-
-
-	<div class="container-fluid">
-		<div class=“row”>
-			<h3>Static REST Access</h3>
-
-			<div class="col-md-12">
-				<input type="text" id="feature" name="feature" value="if0082" />
+	<!-- <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Bootstrapサンプル</a>
+        </div>
+      </div>
+    </nav> -->
+	<div id="contents" class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Static REST Access</h3>
 			</div>
-			<form id="restForm" action="/heroku/" method="" enctype="multipart/form-data">
-				<div class=“col-md-12”>
-					<input type="text" name="recodeMode" value="0" />
-				</div>
-				<div class=“col-md-12”>
-					<input type="text" name="shareholderId" value="00002" />
-				</div>
-				<div class=“col-md-12”>
-					<input type="text" name="userId" value="miyagi" />
-				</div>
-				<div class=“col-md-12”>
-					<!-- <input type="text" name="fileData" value="1010" /> -->
-					<input type="file" onchange="fileget(this);">
-					<input id="base64area" type="text" name="fileData" />base64データ
-				</div>
-				<!-- ボタン領域 -->
-				<div class=“col-md-4”>
-					<input class="btn btn-success" type="button" value="get">GET</button>
-				</div>
-				<div class=“col-md-4”>
-					<input class="btn btn-info" type="button" value="post">POST</button>
-				</div>
-				<div class=“col-md-4”>
-					<input class="btn btn-warning" type="button" value="put">PUT</button>
-				</div>
-				<div class=“col-md-4”>
-					<input class="btn btn-danger" type="button" value="delete">DELETE</button>
-				</div>
-			</form>
-			<div class=“col-md-12”>
-				<form action="/" method="get">
-					<button class="btn btn-default" type="submit">初期URLへ戻る</button>
-				</form>
-			</div>
+			<div class="panel-body">
+				<div class=“row”>
+					<!-- URL設定 -->
+					<p>URL設定</p>
+					<div class="col-md-10">
+						<input type="text" id="feature" name="feature" value="if0081" />
+					</div>
+					<!-- UPLOADフォーム -->
+					<p>UPLOAD情報</p>
+					<form id="uploadForm" action="/heroku/" method="" enctype="multipart/form-data">
+						<div class="form-group">
+							<div class=“col-md-12”>
+								<label>登録モード</label>
+								<input type="text" name="recodeMode" value="0" />
+							</div>
+							<div class=“col-md-12”>
+								<label>株主ID</label>
+								<input type="text" name="shareholderId" value="00002" />
+							</div>
+							<div class=“col-md-12”>
+								<label>ユーザID</label>
+								<input type="text" name="userId" value="miyagi" />
+							</div>
+							<div class=“col-md-12”>
+								<label>ファイル選択</label>
+								<!-- <input type="text" name="fileData" value="1010" /> -->
+								<input type="file" onchange="fileget(this);">
+								<input id="base64area" type="text" name="fileData" />base64データ
+							</div>
+							<!-- ボタン領域 -->
+							<div class=“col-md-4”>
+								<input class="btn btn-success" type="button" value="get">GET</button>
+							</div>
+							<div class=“col-md-4”>
+								<input class="btn btn-info" type="button" value="post">POST</button>
+							</div>
+							<div class=“col-md-4”>
+								<input class="btn btn-warning" type="button" value="put">PUT</button>
+							</div>
+							<div class=“col-md-4”>
+								<input class="btn btn-danger" type="button" value="delete">DELETE</button>
+							</div>
+						</div>
+					</form>
+					<!-- レスポンス設定箇所 -->
+					<div class=“col-md-12”>
+						<form action="/" method="get">
+							<div class="form-group">
+								<button class="btn btn-default" type="submit">初期URLへ戻る</button>
+							</div>
+						</form>
+					</div>
+					<!-- 出力領域 -->
+					<div class=“col-md-12”>
+						<textarea id="result"></textarea>
+					</div>
 
-			<!-- 出力領域 -->
-			<div class=“col-md-12”>
-				<textarea id="result"></textarea>
+					<!-- DOWNLOADフォーム -->
+					<p>DOWNLOAD情報</p>
+					<form id="downloadForm" action="/heroku/" method="" enctype="multipart/form-data">
+						<div class="form-group">
+							<div class=“col-md-12”>
+								<label>年度</label>
+								<input type="text" name="term" value="2019" />
+							</div>
+							<div class=“col-md-12”>
+								<label>株主ID</label>
+								<input type="text" name="shareholderId" value="00002" />
+							</div>
+							<div class=“col-md-12”>
+								<label>ユーザID</label>
+								<input type="text" name="userId" value="miyagi" />
+							</div>
+							<div class=“col-md-12”>
+								<label>出力計画</label>
+								<input type="text" name="outputPlan" value="1010" />
+							</div>
+							<!-- ボタン領域 -->
+							<div class=“col-md-4”>
+								<input class="btn btn-success" type="button" value="get">GET</button>
+							</div>
+							<div class=“col-md-4”>
+								<input class="btn btn-info" type="button" value="post">POST</button>
+							</div>
+							<div class=“col-md-4”>
+								<input class="btn btn-warning" type="button" value="put">PUT</button>
+							</div>
+							<div class=“col-md-4”>
+								<input class="btn btn-danger" type="button" value="delete">DELETE</button>
+							</div>
+						</div>
+					</form>
+					<!-- 出力領域 -->
+					<div class=“col-md-12”>
+						<link id="file_dl">
+					</div>
+				</div>
 			</div>
 		</div>
+		<!-- ここまで -->
 	</div>
 </body>
 
