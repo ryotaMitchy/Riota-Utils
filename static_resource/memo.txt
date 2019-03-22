@@ -33,3 +33,66 @@
 "power_generation_result"
 "fuel_result"
 ""
+
+target_date
+target_year
+target_month
+target_day
+target_weekday
+target_weekday_type
+unit1
+unit2
+frame_seq
+frame_seq_text
+max_value_total
+percent_shareholder_1
+max_value_shareholder_1
+percent_shareholder_2
+max_value_shareholder_2
+percent_shareholder_3
+max_value_shareholder_3
+percent_shareholder_4
+max_value_shareholder_4
+percent_shareholder_5
+max_value_shareholder_5
+percent_shareholder_6
+max_value_shareholder_6
+percent_shareholder_7
+max_value_shareholder_7
+percent_shareholder_8
+max_value_shareholder_8
+pattern_shareholder_1
+pattern_shareholder_2
+pattern_shareholder_3
+pattern_shareholder_4
+pattern_shareholder_5
+pattern_shareholder_6
+pattern_shareholder_7
+pattern_shareholder_8
+
+
+target_date
+frame_seq
+section_type
+shareholder_1
+shareholder_2
+shareholder_3
+shareholder_4
+shareholder_5
+shareholder_6
+shareholder_7
+shareholder_8
+shareholder_total
+diff_conference
+diff_lap
+diff_parent_section
+
+-- 基準出力など基本情報部分:params 開始日,終了日
+select * from generation.get_power_generation_base(:prm_start_date,:prm_end_date);
+select * from generation.get_power_generation_base(:prm_start_date,:prm_end_date, '00002');
+-- 年間１次案などの計画情報部分:params 開始日,終了日,断面区分
+select * from generation.get_power_generation_plan(:prm_start_date,:prm_end_date,:prm_section_type);
+--・基準情報（会議用）取得
+select * from generation.get_power_generation_base_conference(:prm_start_date,:prm_end_date);
+--・発電計画（会議用）取得
+select * from generation.get_power_generation_plan_conference(:prm_start_date,:prm_end_date, :section_type);
