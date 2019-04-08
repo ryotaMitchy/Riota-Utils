@@ -43,6 +43,7 @@ function callAjax(url, method, data) {
 
         console.log('done', jqXHR.status);
         $('#result').val(JSON.stringify(data));
+        download(data);
     }).catch((...args) => {
         // fail 通信失敗時
         const [jqXHR, textStatus, errorThrown] = args;
@@ -80,7 +81,13 @@ function fileget(imgfile) {
  * 
  * @param base64
  */
-function download(base64) {
+function download(data) {
+
+    var base64 = data.resData.body
+    if (!base64) {
+        return;
+    }
+
     var mime_ctype = 'application/octet-stream';
     var blob = toBlob(base64, mime_ctype);
 
@@ -88,10 +95,10 @@ function download(base64) {
     //     // IEやEdgeの場合、Blob URL Schemeへと変換しなくともダウンロードできる
     //     window.navigator.msSaveOrOpenBlob(blob, "download.xlsx");
     // } else {
-        // BlobをBlob URL Schemeへ変換してリンクタグへ埋め込む
-        $("#file_dl").prop("href", window.URL.createObjectURL(blob));
-        // リンクをクリックする
-        document.getElementById("file_dl").click();
+    // BlobをBlob URL Schemeへ変換してリンクタグへ埋め込む
+    $("#file_dl").prop("href", window.URL.createObjectURL(blob));
+    // リンクをクリックする
+    document.getElementById("file_dl").click();
     // }
 }
 
