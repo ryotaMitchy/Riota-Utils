@@ -6,132 +6,159 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" media="all" href="./bootstrap/css/bootstrap.css" />
-	<!-- <link rel="stylesheet" media="all" href="./main.css" /> -->
+	<link rel="stylesheet" media="all" href="./rest.css" />
 	<script type="text/javascript" src="./jquery/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="./bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript" src="./rest.js"></script>
 </head>
 
 
-<body>
-	<!-- <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Bootstrapサンプル</a>
-        </div>
-      </div>
-    </nav> -->
-	<div id="contents" class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3>Static REST Access</h3>
-			</div>
-			<div class="panel-body">
-				<div class=“row”>
-					<!-- URL設定 -->
-					<p>URL設定</p>
-					<div class="col-md-10">
-						<input type="text" id="feature" name="feature" value="if0081" />
+<body class="text-center">
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<a class="navbar-brand" href="#">Navbar</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+			aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">Disabled</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Dropdown</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
 					</div>
-					<!-- UPLOADフォーム -->
-					<p>UPLOAD情報</p>
-					<form id="uploadForm" action="/heroku/" method="" enctype="multipart/form-data">
-						<div class="form-group">
-							<div class=“col-md-12”>
-								<label>登録モード</label>
-								<input type="text" name="recodeMode" value="0" />
-							</div>
-							<div class=“col-md-12”>
-								<label>株主ID</label>
-								<input type="text" name="shareholderId" value="00002" />
-							</div>
-							<div class=“col-md-12”>
-								<label>ユーザID</label>
-								<input type="text" name="userId" value="miyagi" />
-							</div>
-							<div class=“col-md-12”>
-								<label>ファイル選択</label>
-								<!-- <input type="text" name="fileData" value="1010" /> -->
-								<input type="file" onchange="fileget(this);">
-								<input id="base64area" type="text" name="fileData" />base64データ
-							</div>
-							<!-- ボタン領域 -->
-							<div class=“col-md-4”>
-								<input class="btn btn-success" type="button" value="get">GET</button>
-							</div>
-							<div class=“col-md-4”>
-								<input class="btn btn-info" type="button" value="post">POST</button>
-							</div>
-							<div class=“col-md-4”>
-								<input class="btn btn-warning" type="button" value="put">PUT</button>
-							</div>
-							<div class=“col-md-4”>
-								<input class="btn btn-danger" type="button" value="delete">DELETE</button>
-							</div>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+
+	<main role="main" class="container">
+
+		<div class="starter-template">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3>Static REST Access</h3>
+				</div>
+				<div class="panel-body">
+					<div class=“row”>
+						<!-- URL設定 -->
+						<p>URL設定</p>
+						<div class="col-md-10">
+							<input type="text" id="feature" name="feature" value="if0081" />
 						</div>
-					</form>
-					<!-- レスポンス設定箇所 -->
-					<div class=“col-md-12”>
-						<form action="/" method="get">
+						<!-- UPLOADフォーム -->
+						<p>UPLOAD情報</p>
+						<form id="uploadForm" action="/heroku/" method="" enctype="multipart/form-data">
 							<div class="form-group">
-								<button class="btn btn-default" type="submit">初期URLへ戻る</button>
+								<div class=“col-md-12”>
+									<label>登録モード</label>
+									<input type="text" name="recodeMode" value="0" />
+								</div>
+								<div class=“col-md-12”>
+									<label>株主ID</label>
+									<input type="text" name="shareholderId" value="00002" />
+								</div>
+								<div class=“col-md-12”>
+									<label>ユーザID</label>
+									<input type="text" name="userId" value="miyagi" />
+								</div>
+								<div class=“col-md-12”>
+									<label>ファイル選択</label>
+									<!-- <input type="text" name="fileData" value="1010" /> -->
+									<input type="file" onchange="fileget(this);">
+									<input id="base64area" type="text" name="fileData" />base64データ
+								</div>
+								<!-- ボタン領域 -->
+								<div class=“col-md-4”>
+									<input class="btn btn-success" type="button" value="get">GET</button>
+								</div>
+								<div class=“col-md-4”>
+									<input class="btn btn-info" type="button" value="post">POST</button>
+								</div>
+								<div class=“col-md-4”>
+									<input class="btn btn-warning" type="button" value="put">PUT</button>
+								</div>
+								<div class=“col-md-4”>
+									<input class="btn btn-danger" type="button" value="delete">DELETE</button>
+								</div>
 							</div>
 						</form>
-					</div>
-					<!-- 出力領域 -->
-					<div class=“col-md-12”>
-						<textarea id="result"></textarea>
-					</div>
-
-					<!-- DOWNLOADフォーム -->
-					<p>DOWNLOAD情報</p>
-					<form id="downloadForm" action="/heroku/" method="" enctype="multipart/form-data">
-						<div class="form-group">
-							<div class=“col-md-12”>
-								<label>年度</label>
-								<input type="text" name="term" value="2019" />
-							</div>
-							<div class=“col-md-12”>
-								<label>株主ID</label>
-								<input type="text" name="shareholderId" value="00002" />
-							</div>
-							<div class=“col-md-12”>
-								<label>ユーザID</label>
-								<input type="text" name="userId" value="miyagi" />
-							</div>
-							<div class=“col-md-12”>
-								<label>出力計画</label>
-								<input type="text" name="outputPlan" value="1010" />
-							</div>
-							<!-- ボタン領域 -->
-							<div class=“col-md-4”>
-								<input class="btn btn-success" type="button" value="get">GET</button>
-							</div>
-							<div class=“col-md-4”>
-								<input class="btn btn-info" type="button" value="post">POST</button>
-							</div>
-							<div class=“col-md-4”>
-								<input class="btn btn-warning" type="button" value="put">PUT</button>
-							</div>
-							<div class=“col-md-4”>
-								<input class="btn btn-danger" type="button" value="delete">DELETE</button>
-							</div>
+						<!-- レスポンス設定箇所 -->
+						<div class=“col-md-12”>
+							<form action="/" method="get">
+								<div class="form-group">
+									<button class="btn btn-default" type="submit">初期URLへ戻る</button>
+								</div>
+							</form>
 						</div>
-					</form>
-					<!-- 出力領域 -->
-					<div class=“col-md-12”>
-						<link id="file_dl">
+						<!-- 出力領域 -->
+						<div class=“col-md-12”>
+							<textarea id="result"></textarea>
+						</div>
+
+						<!-- DOWNLOADフォーム -->
+						<p>DOWNLOAD情報</p>
+						<form id="downloadForm" action="/heroku/" method="" enctype="multipart/form-data">
+							<div class="form-group">
+								<div class=“col-md-12”>
+									<label>年度</label>
+									<input type="text" name="term" value="2019" />
+								</div>
+								<div class=“col-md-12”>
+									<label>株主ID</label>
+									<input type="text" name="shareholderId" value="00002" />
+								</div>
+								<div class=“col-md-12”>
+									<label>ユーザID</label>
+									<input type="text" name="userId" value="miyagi" />
+								</div>
+								<div class=“col-md-12”>
+									<label>出力計画</label>
+									<input type="text" name="outputPlan" value="1010" />
+								</div>
+								<!-- ボタン領域 -->
+								<div class=“col-md-4”>
+									<input class="btn btn-success" type="button" value="get">GET</button>
+								</div>
+								<div class=“col-md-4”>
+									<input class="btn btn-info" type="button" value="post">POST</button>
+								</div>
+								<div class=“col-md-4”>
+									<input class="btn btn-warning" type="button" value="put">PUT</button>
+								</div>
+								<div class=“col-md-4”>
+									<input class="btn btn-danger" type="button" value="delete">DELETE</button>
+								</div>
+							</div>
+						</form>
+						<!-- 出力領域 -->
+						<div class=“col-md-12”>
+							<link id="file_dl">
+						</div>
 					</div>
 				</div>
 			</div>
+			<!-- ここまで -->
 		</div>
-		<!-- ここまで -->
-	</div>
+	</main><!-- /.container -->
 </body>
 
 </html>
