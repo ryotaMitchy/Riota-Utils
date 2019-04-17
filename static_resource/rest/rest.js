@@ -1,6 +1,6 @@
 window.onload = function load() {
     console.log('load start');
-    let buttons = $("#contents").find('input[type="button"]');
+    let buttons = $("#main").find('input[type="button"]');
     $(buttons).each(function (index, element) {
         // クリックイベントを設定
         $(element).on('click', createRequest);
