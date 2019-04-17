@@ -55,36 +55,41 @@
 		<div class="starter-template">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3>Static REST Access</h3>
+					<h3>REST Access</h3>
 				</div>
 				<div class="panel-body">
-					<div class=“row”>
+					<div class=“row	”>
 						<!-- URL設定 -->
 						<p>URL設定</p>
-						<div class="col-md-10">
-							<input type="text" id="feature" name="feature" value="if0081" />
+						<div class="col-md-12">
+							<input type="text" id="url" name="url" class="form-control" placeholder="URL" value="https://fgp-staging.herokuapp.com/heroku/" />
+						</div>
+						<div class="col-md-12">
+							<input type="text" id="feature" name="feature" class="form-control" placeholder="IF" value="if0081" />
 						</div>
 						<!-- UPLOADフォーム -->
 						<p>UPLOAD情報</p>
-						<form id="uploadForm" action="/heroku/" method="" enctype="multipart/form-data">
+						<form id="uploadForm" action="" method="" enctype="multipart/form-data">
 							<div class="form-group">
 								<div class=“col-md-12”>
 									<label>登録モード</label>
-									<input type="text" name="recodeMode" value="0" />
+									<input type="text" name="recodeMode" class="form-control" placeholder="登録モード" value="0" />
 								</div>
 								<div class=“col-md-12”>
 									<label>株主ID</label>
-									<input type="text" name="shareholderId" value="00002" />
+									<input type="text" name="shareholderId" class="form-control" placeholder="株主ID" value="00002" />
 								</div>
-								<div class=“col-md-12”>
+								<div class=“col-md-12” class="form-control">
 									<label>ユーザID</label>
-									<input type="text" name="userId" value="miyagi" />
+									<input type="text" name="userId" class="form-inline" placeholder="ユーザID" value="miyagi" />
 								</div>
 								<div class=“col-md-12”>
 									<label>ファイル選択</label>
 									<!-- <input type="text" name="fileData" value="1010" /> -->
 									<input type="file" onchange="fileget(this);">
-									<input id="base64area" type="text" name="fileData" />base64データ
+								</div>
+								<div class=“col-md-12”>
+									base64データ<input id="base64area" type="text" name="fileData" />
 								</div>
 								<!-- ボタン領域 -->
 								<div class=“col-md-4”>

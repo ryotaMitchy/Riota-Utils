@@ -20,7 +20,7 @@ function createRequest() {
     })
 
     // URL生成
-    let url = form.attr('action') + $('#feature').val();
+    let url = $('#url').val() + $('#feature').val();
 
     // Ajax実施
     callAjax(url, $(this).val(), data);
@@ -32,7 +32,8 @@ function callAjax(url, method, data) {
     console.log(data);
 
     $.ajax({
-        url: 'http://localhost:5000' + url,
+        // url: 'http://localhost:5000' + url,
+        url: url,
         type: method,
         data: JSON.stringify(data),
         contentType: 'application/json',
