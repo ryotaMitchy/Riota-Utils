@@ -33,15 +33,8 @@ public class Stay {
         PopupMenu popup = new PopupMenu(); // ※4 ポップアップメニューを生成
         System.out.println(ClassLoader.getSystemClassLoader());
 
-        URL[] urls = ((URLClassLoader) (Thread.currentThread().getContextClassLoader())).getURLs();
-        for(URL url :urls){
-            System.out.println(url);
-        }
-        
-        Path file = Paths.get(urls[0] + "/resources/pronama.png");
-
-        // ClassLoader.getSystemResource("/Users/miyagi/DEV/private/Riota-Utils/src/main/resources/pronama.png")
-        Image image = Toolkit.getDefaultToolkit().createImage(file.toString()); // アイコン画像を準備
+        // ClassLoaderのpathの場所はRiota-Utils/bin/main/配下
+        Image image = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource("pronama.png")); // アイコン画像を準備
         TrayIcon icon = new TrayIcon(image, "Sample Java App", popup); // ※4 トレイアイコンとして生成
         icon.setImageAutoSize(true); // リサイズ
 
